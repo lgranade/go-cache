@@ -1231,8 +1231,8 @@ func TestOnEvicted(t *testing.T) {
 		t.Fatal("tc.onEvicted is not nil")
 	}
 	works := false
-	tc.OnEvicted(func(k string, v interface{}) {
-		if k == "foo" && v.(int) == 3 {
+	tc.OnEvicted(func(k string, v interface{}, expired bool) {
+		if k == "foo" && v.(int) == 3 && !expired {
 			works = true
 		}
 		tc.Set("bar", 4, DefaultExpiration)
